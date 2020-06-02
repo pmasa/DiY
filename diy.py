@@ -2,8 +2,6 @@ import RPi.GPIO as GPIO
 import time
 from gpiozero import MotionSensor
 
-import threading 
-
 GPIO.setmode(GPIO.BCM)
 
 relay_pin = 27
@@ -12,7 +10,7 @@ pir_sensor = 17
 GPIO.setup(relay_pin, GPIO.OUT)
 pir = MotionSensor(pir_sensor)
 
-print ("Waiting for 2 seconds")
+print ("Pause de 2 secondes")
 time.sleep(2)
 
 
