@@ -7,6 +7,5 @@ pip install gpiozero
 3. Assurez-vous que la librairie Rpi est installée et que vos composants sont bien connectés au Raspberry comme décrit précédemment.
 4. Créer un fichier d’extension .py (par exemple: diy.py) et mettez-y le code ci-haut, puis sauver le fichier.
 
-Comment exécuter le code
-En mode console, tapez la ligne suivante pour lancer le programme : python diy.py
+Comment exécuter le code: dans votre console, tapez la ligne suivante pour lancer le programme : python diy.py
 
