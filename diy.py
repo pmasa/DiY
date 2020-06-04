@@ -1,40 +1,39 @@
-import RPi.GPIO as GPIO
-import time
-from gpiozero import MotionSensor
 
-GPIO.setmode(GPIO.BCM)
+import RPi.GPIO as GPIO # import de la librairie de gestion des GPIO
+import time  # import de la librairie de gestion du temps
 
-relay_pin = 27
-pir_sensor = 17
+from gpiozero import MotionSensor # import de la librairie de gestion du capteur
 
-GPIO.setup(relay_pin, GPIO.OUT)
-pir = MotionSensor(pir_sensor)
+GPIO.setmode(GPIO.BCM) # les pins sont lus selon leur numérotation électronique
+pin_relais = 27
+pin_capteur = 17
+
+GPIO.setup(pin_relais, GPIO.OUT) # Initialisation du pin relais en sortie
+
+capteur = MotionSensor(pin_capteur) # Initialisation de l'objet capteur
 
 print ("Pause de 2 secondes")
 time.sleep(2)
-
-
 print ("Debut du processus...")
 
-
 try:
+    # début boucle infinie
     while True:
-        time.sleep(0.5)    
-        if pir.motion_detected:
             
+        if capteur.motion_detected: # capteur détecte mouvement ?
+            # le capteur a detecté un mouvement
             print("Demarrage pompe")
-            GPIO.output(relay_pin, GPIO.HIGH)
-            time.sleep(0.005)
+            GPIO.output(pin_relais, GPIO.HIGH)
+            time.sleep(0.005) # temps nécessaire pour aspirer le liquide
 
             print("Arret pompe")
-            GPIO.output(relay_pin, GPIO.LOW)
-            time.sleep(10)
+            GPIO.output(pin_relais, GPIO.LOW)
+            time.sleep(10) # temporisation de 10 sec pour réinitialiser le capteur
+
+        time.sleep(0.5) # temporisation de 0.5sec pour ne pas chauffer le processeur
 
 except KeyboardInterrupt:
     print("CTRL-C: stoppe le programme.")
 finally:
     print("Nettoyage des GPIO...")
-    GPIO.output(relay_pin, GPIO.LOW)
     GPIO.cleanup()
-
-
